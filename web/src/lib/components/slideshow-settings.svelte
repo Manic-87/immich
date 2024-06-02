@@ -16,21 +16,22 @@
   import Button from './elements/buttons/button.svelte';
   import type { RenderedOption } from './elements/dropdown.svelte';
   import SettingDropdown from './shared-components/settings/setting-dropdown.svelte';
+  import { t } from 'svelte-i18n';
 
   const { slideshowDelay, showProgressBar, slideshowNavigation, slideshowLook } = slideshowStore;
 
   export let onClose = () => {};
 
   const navigationOptions: Record<SlideshowNavigation, RenderedOption> = {
-    [SlideshowNavigation.Shuffle]: { icon: mdiShuffle, title: { $t("shuffle") } },
-    [SlideshowNavigation.AscendingOrder]: { icon: mdiArrowUpThin, title: { $t("backward") } },
-    [SlideshowNavigation.DescendingOrder]: { icon: mdiArrowDownThin, title: { $t("forward") } },
+    [SlideshowNavigation.Shuffle]: { icon: mdiShuffle, title: $t('shuffle') },
+    [SlideshowNavigation.AscendingOrder]: { icon: mdiArrowUpThin, title: $t('backward') },
+    [SlideshowNavigation.DescendingOrder]: { icon: mdiArrowDownThin, title: $t('forward') },
   };
 
   const lookOptions: Record<SlideshowLook, RenderedOption> = {
-    [SlideshowLook.Contain]: { icon: mdiFitToScreenOutline, title: { $t("contain") } },
-    [SlideshowLook.Cover]: { icon: mdiFitToPageOutline, title: { $t("cover") } },
-    [SlideshowLook.BlurredBackground]: { icon: mdiPanorama, title: { $t("blurred_background") } },
+    [SlideshowLook.Contain]: { icon: mdiFitToScreenOutline, title: $t('contain') },
+    [SlideshowLook.Cover]: { icon: mdiFitToPageOutline, title: $t('cover') },
+    [SlideshowLook.BlurredBackground]: { icon: mdiPanorama, title: $t('blurred_background') },
   };
 
   const handleToggle = <Type extends SlideshowNavigation | SlideshowLook>(
@@ -45,10 +46,10 @@
   };
 </script>
 
-<FullScreenModal id="slideshow-settings-modal" title={ $t("slideshow_settings") } {onClose}>
+<FullScreenModal id="slideshow-settings-modal" title={$t('slideshow_settings')} {onClose}>
   <div class="flex flex-col gap-4 text-immich-primary dark:text-immich-dark-primary">
     <SettingDropdown
-      title={ $t("direction") }
+      title={$t('direction')}
       options={Object.values(navigationOptions)}
       selectedOption={navigationOptions[$slideshowNavigation]}
       onToggle={(option) => {
@@ -56,23 +57,23 @@
       }}
     />
     <SettingDropdown
-      title={ $t("look") }
+      title={$t('look')}
       options={Object.values(lookOptions)}
       selectedOption={lookOptions[$slideshowLook]}
       onToggle={(option) => {
         $slideshowLook = handleToggle(option, lookOptions) || $slideshowLook;
       }}
     />
-    <SettingSwitch id="show-progress-bar" title={ $t("show_progress_bar") } bind:checked={$showProgressBar} />
+    <SettingSwitch id="show-progress-bar" title={$t('show_progress_bar')} bind:checked={$showProgressBar} />
     <SettingInputField
       inputType={SettingInputFieldType.NUMBER}
-      label={ $t("duration") }
+      label={$t('duration')}
       desc="Number of seconds to display each image"
       min={1}
       bind:value={$slideshowDelay}
     />
   </div>
   <svelte:fragment slot="sticky-bottom">
-    <Button fullwidth color="primary" on:click={onClose}>{ $t("done") }</Button>
+    <Button fullwidth color="primary" on:click={onClose}>{$t('done')}</Button>
   </svelte:fragment>
 </FullScreenModal>
