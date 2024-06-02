@@ -64,7 +64,7 @@
       allPeople = people;
       peopleWithFaces = await getFaces({ id: assetId });
     } catch (error) {
-      handleError(error, "Can't get faces");
+      handleError(error, { $t("cant_get_faces") });
     } finally {
       clearTimeout(timeout);
     }
@@ -142,7 +142,7 @@
           type: NotificationType.Info,
         });
       } catch (error) {
-        handleError(error, "Can't apply changes");
+        handleError(error, { $t("cant_apply_changes") });
       }
     }
 
@@ -184,8 +184,8 @@
 >
   <div class="flex place-items-center justify-between gap-2">
     <div class="flex items-center gap-2">
-      <CircleIconButton icon={mdiArrowLeftThin} title="Back" on:click={handleBackButton} />
-      <p class="flex text-lg text-immich-fg dark:text-immich-dark-fg">Edit faces</p>
+      <CircleIconButton icon={mdiArrowLeftThin} title={ $t("back") } on:click={handleBackButton} />
+      <p class="flex text-lg text-immich-fg dark:text-immich-dark-fg">{ $t("edit_faces") }</p>
     </div>
     {#if !isShowLoadingDone}
       <button
@@ -225,7 +225,7 @@
                       shadow
                       url={selectedPersonToCreate[face.id]}
                       altText={selectedPersonToCreate[face.id]}
-                      title={'New person'}
+                      title={{ $t("new_person") }}
                       widthStyle={thumbnailWidth}
                       heightStyle={thumbnailWidth}
                     />
@@ -272,7 +272,7 @@
                     <CircleIconButton
                       color="primary"
                       icon={mdiRestart}
-                      title="Reset"
+                      title={ $t("reset") }
                       size="18"
                       padding="1"
                       class="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] transform"
@@ -282,7 +282,7 @@
                     <CircleIconButton
                       color="primary"
                       icon={mdiMinus}
-                      title="Select new face"
+                      title={ $t("select_new_face") }
                       size="18"
                       padding="1"
                       class="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] transform"

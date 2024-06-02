@@ -35,6 +35,6 @@
       inputClass="w-full gap-2 bg-gray-100 dark:bg-gray-700 dark:text-white"
       bind:showLoadingSpinner={isSearchingPeople}
     />
-    <Button size="sm" type="submit">Done</Button>
+    <Button size="sm" type="submit">{ $t("done") }</Button>
   </form>
 </div>

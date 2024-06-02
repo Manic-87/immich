@@ -16,6 +16,7 @@
   import { fixAuditFiles, getAuditFiles, getFileChecksums, type FileReportItemDto } from '@immich/sdk';
   import { mdiCheckAll, mdiContentCopy, mdiDownload, mdiRefresh, mdiWrench } from '@mdi/js';
   import type { PageData } from './$types';
+  import { t } from 'svelte-i18n';
 
   export let data: PageData;
 
@@ -84,7 +85,7 @@
 
       matches = [];
     } catch (error) {
-      handleError(error, 'Unable to repair items');
+      handleError(error, $t('unable_to_repair_items'));
     } finally {
       repairing = false;
     }
@@ -107,9 +108,9 @@
       orphans = report.orphans;
       extras = normalize(report.extras);
 
-      notificationController.show({ message: 'Refreshed', type: NotificationType.Info });
+      notificationController.show({ message: $t('refreshed'), type: NotificationType.Info });
     } catch (error) {
-      handleError(error, 'Unable to load items');
+      handleError(error, $t('unable_to_load_items'));
     }
   };
 
@@ -120,7 +121,7 @@
         notificationController.show({ message: `Matched 1 item`, type: NotificationType.Info });
       }
     } catch (error) {
-      handleError(error, 'Unable to check item');
+      handleError(error, $t('unable_to_check_item'));
     }
   };
 
@@ -136,7 +137,7 @@
         count += await loadAndMatch(filenames.slice(index, index + chunkSize));
       }
     } catch (error) {
-      handleError(error, 'Unable to check items');
+      handleError(error, $t('unable_to_check_items'));
     } finally {
       checking = false;
     }
@@ -266,7 +267,7 @@
                   title={orphan.pathValue}
                 >
                   <td on:click={() => copyToClipboard(orphan.pathValue)}>
-                    <CircleIconButton title="Copy file path" icon={mdiContentCopy} size="18" />
+                    <CircleIconButton title={$t('copy_file_path')} icon={mdiContentCopy} size="18" />
                   </td>
                   <td class="truncate text-sm font-mono text-left" title={orphan.pathValue}>
                     {orphan.pathValue}
@@ -306,7 +307,7 @@
                   title={extra.filename}
                 >
                   <td on:click={() => copyToClipboard(extra.filename)}>
-                    <CircleIconButton title="Copy file path" icon={mdiContentCopy} size="18" />
+                    <CircleIconButton title={$t('copy_file_path')} icon={mdiContentCopy} size="18" />
                   </td>
                   <td class="w-full text-md text-ellipsis flex justify-between pr-5">
                     <span class="text-ellipsis grow truncate font-mono text-sm pr-5" title={extra.filename}

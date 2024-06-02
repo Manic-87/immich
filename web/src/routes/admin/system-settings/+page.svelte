@@ -28,6 +28,7 @@
   import type { SystemConfigDto } from '@immich/sdk';
   import { mdiAlert, mdiContentCopy, mdiDownload, mdiUpload } from '@mdi/js';
   import type { PageData } from './$types';
+  import { t } from 'svelte-i18n';
 
   export let data: PageData;
 
@@ -82,37 +83,37 @@
   }> = [
     {
       item: AuthSettings,
-      title: 'Authentication Settings',
+      title: $t('authentication_settings'),
       subtitle: 'Manage password, OAuth, and other authentication settings',
       key: 'image',
     },
     {
       item: ImageSettings,
-      title: 'Image Settings',
+      title: $t('image_settings'),
       subtitle: 'Manage the quality and resolution of generated images',
       key: 'image',
     },
     {
       item: JobSettings,
-      title: 'Job Settings',
-      subtitle: 'Manage job concurrency',
+      title: $t('job_settings'),
+      subtitle: $t('manage_job_concurrency'),
       key: 'job',
     },
     {
       item: LibrarySettings,
-      title: 'External Library',
-      subtitle: 'Manage external library settings',
+      title: $t('external_library'),
+      subtitle: $t('manage_external_library_settings'),
       key: 'external-library',
     },
     {
       item: LoggingSettings,
-      title: 'Logging',
-      subtitle: 'Manage log settings',
+      title: $t('logging'),
+      subtitle: $t('manage_log_settings'),
       key: 'logging',
     },
     {
       item: MachineLearningSettings,
-      title: 'Machine Learning Settings',
+      title: $t('machine_learning_settings'),
       subtitle: 'Manage machine learning features and settings',
       key: 'machine-learning',
     },
@@ -124,49 +125,49 @@
     },
     {
       item: NotificationSettings,
-      title: 'Notification Settings',
+      title: $t('notification_settings'),
       subtitle: 'Manage notification settings, including email',
       key: 'notifications',
     },
     {
       item: ServerSettings,
-      title: 'Server Settings',
-      subtitle: 'Manage server settings',
+      title: $t('server_settings'),
+      subtitle: $t('manage_server_settings'),
       key: 'server',
     },
     {
       item: StorageTemplateSettings,
-      title: 'Storage Template',
+      title: $t('storage_template'),
       subtitle: 'Manage the folder structure and file name of the upload asset',
       key: 'storage-template',
     },
     {
       item: ThemeSettings,
-      title: 'Theme Settings',
+      title: $t('theme_settings'),
       subtitle: 'Manage customization of the Immich web interface',
       key: 'theme',
     },
     {
       item: TrashSettings,
-      title: 'Trash Settings',
-      subtitle: 'Manage trash settings',
+      title: $t('trash_settings'),
+      subtitle: $t('manage_trash_settings'),
       key: 'trash',
     },
     {
       item: UserSettings,
-      title: 'User Settings',
-      subtitle: 'Manage user settings',
+      title: $t('user_settings'),
+      subtitle: $t('manage_user_settings'),
       key: 'user-settings',
     },
     {
       item: NewVersionCheckSettings,
-      title: 'Version Check',
+      title: $t('version_check'),
       subtitle: 'Enable/disable the new version notification',
       key: 'version-check',
     },
     {
       item: FFmpegSettings,
-      title: 'Video Transcoding Settings',
+      title: $t('video_transcoding_settings'),
       subtitle: 'Manage the resolution and encoding information of the video files',
       key: 'video-transcoding',
     },

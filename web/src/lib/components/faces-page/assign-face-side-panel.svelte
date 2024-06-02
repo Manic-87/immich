@@ -119,19 +119,19 @@
   <div class="flex place-items-center justify-between gap-2">
     {#if !searchFaces}
       <div class="flex items-center gap-2">
-        <CircleIconButton icon={mdiArrowLeftThin} title="Back" on:click={handleBackButton} />
-        <p class="flex text-lg text-immich-fg dark:text-immich-dark-fg">Select face</p>
+        <CircleIconButton icon={mdiArrowLeftThin} title={ $t("back") } on:click={handleBackButton} />
+        <p class="flex text-lg text-immich-fg dark:text-immich-dark-fg">{ $t("select_face") }</p>
       </div>
       <div class="flex justify-end gap-2">
         <CircleIconButton
           icon={mdiMagnify}
-          title="Search for existing person"
+          title={ $t("search_for_existing_person") }
           on:click={() => {
             searchFaces = true;
           }}
         />
         {#if !isShowLoadingNewPerson}
-          <CircleIconButton icon={mdiPlus} title="Create new person" on:click={handleCreatePerson} />
+          <CircleIconButton icon={mdiPlus} title={ $t("create_new_person") } on:click={handleCreatePerson} />
         {:else}
           <div class="flex place-content-center place-items-center">
             <LoadingSpinner />
@@ -139,7 +139,7 @@
         {/if}
       </div>
     {:else}
-      <CircleIconButton icon={mdiArrowLeftThin} title="Back" on:click={handleBackButton} />
+      <CircleIconButton icon={mdiArrowLeftThin} title={ $t("back") } on:click={handleBackButton} />
       <div class="w-full flex">
         <SearchPeople
           type="input"
@@ -153,11 +153,11 @@
           </div>
         {/if}
       </div>
-      <CircleIconButton icon={mdiClose} title="Cancel search" on:click={() => (searchFaces = false)} />
+      <CircleIconButton icon={mdiClose} title={ $t("cancel_search") } on:click={() => (searchFaces = false)} />
     {/if}
   </div>
   <div class="px-4 py-4 text-sm">
-    <h2 class="mb-8 mt-4 uppercase">All people</h2>
+    <h2 class="mb-8 mt-4 uppercase">{ $t("all_people") }</h2>
     <div class="immich-scrollbar mt-4 flex flex-wrap gap-2 overflow-y-auto">
       {#each showPeople as person (person.id)}
         {#if person.id !== editedPerson.id}

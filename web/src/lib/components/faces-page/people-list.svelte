@@ -25,7 +25,7 @@
 </script>
 
 <div class=" w-40 sm:w-48 md:w-96 h-14 mb-8">
-  <SearchPeople type="searchBar" placeholder="Search people" bind:searchName={name} bind:searchedPeopleLocal />
+  <SearchPeople type="searchBar" placeholder={ $t("search_people") } bind:searchName={name} bind:searchedPeopleLocal />
 </div>
 
 <div
