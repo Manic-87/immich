@@ -1,7 +1,7 @@
 import { UploadState } from '$lib/models/upload-asset';
 import { uploadAssetsStore } from '$lib/stores/upload';
 import { getKey, uploadRequest } from '$lib/utils';
-import { addAssetsToAlbum } from '$lib/utils/asset-utils';
+import { addAssetsToAlbum, addedToAlbumNotification } from '$lib/utils/asset-utils';
 import { ExecutorQueue } from '$lib/utils/executor-queue';
 import {
   Action,
@@ -72,6 +72,9 @@ export const fileUploadHandler = async (files: File[], albumId?: string, assetId
   }
 
   const results = await Promise.all(promises);
+  if (albumId) {
+    addedToAlbumNotification(results.length, albumId)
+  }
   return results.filter((result): result is string => !!result);
 };
 
@@ -158,7 +161,7 @@ async function fileUploader(assetFile: File, albumId?: string, replaceAssetId?: 
       uploadAssetsStore.successCounter.update((c) => c + 1);
       if (albumId && id) {
         uploadAssetsStore.updateAsset(deviceAssetId, { message: 'Adding to album...' });
-        await addAssetsToAlbum(albumId, [id]);
+        await addAssetsToAlbum(albumId, [id], true);
         uploadAssetsStore.updateAsset(deviceAssetId, { message: 'Added to album' });
       }
     }
