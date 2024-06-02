@@ -26,7 +26,7 @@ import { DateTime } from 'luxon';
 import { get } from 'svelte/store';
 import { handleError } from './handle-error';
 
-export const addAssetsToAlbum = async (albumId: string, assetIds: string[]) => {
+export const addAssetsToAlbum = async (albumId: string, assetIds: string[], hideNotification?: boolean) => {
   const result = await addAssets({
     id: albumId,
     bulkIdsDto: {
@@ -35,20 +35,14 @@ export const addAssetsToAlbum = async (albumId: string, assetIds: string[]) => {
     key: getKey(),
   });
   const count = result.filter(({ success }) => success).length;
-  notificationController.show({
-    type: NotificationType.Info,
-    timeout: 5000,
-    message:
-      count > 0
-        ? `Added ${count} asset${s(count)} to the album`
-        : `Asset${assetIds.length === 1 ? ' was' : 's were'} already part of the album`,
-    button: {
-      text: 'View Album',
-      onClick() {
-        return goto(`${AppRoute.ALBUMS}/${albumId}`);
-      },
-    },
-  });
+  if (!hideNotification) {
+    if (count > 0) {
+      addedToAlbumNotification(count, albumId);
+    }
+    if (count != assetIds.length) {
+      alreadyInAlbumNotification((assetIds.length - count), albumId);
+    }
+  }
 };
 
 export const addAssetsToNewAlbum = async (albumName: string, assetIds: string[]) => {
@@ -70,6 +64,34 @@ export const addAssetsToNewAlbum = async (albumName: string, assetIds: string[])
     },
   });
   return album;
+};
+
+export function addedToAlbumNotification(count: number, albumId: string) {
+  notificationController.show({
+    type: NotificationType.Info,
+    timeout: 5000,
+    message: `Added ${count} asset${s(count)} to the album`,
+    button: {
+      text: 'View Album',
+      onClick() {
+        return goto(`${AppRoute.ALBUMS}/${albumId}`);
+      },
+    },
+  });
+};
+
+export function alreadyInAlbumNotification(count: number, albumId: string) {
+  notificationController.show({
+    type: NotificationType.Info,
+    timeout: 5000,
+    message: `${count} asset${count === 1 ? ' was' : 's were'} already part of the album`,
+    button: {
+      text: 'View Album',
+      onClick() {
+        return goto(`${AppRoute.ALBUMS}/${albumId}`);
+      },
+    },
+  });
 };
 
 export const downloadAlbum = async (album: AlbumResponseDto) => {
